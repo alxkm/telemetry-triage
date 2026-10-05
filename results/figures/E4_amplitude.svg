@@ -1,0 +1,63 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='760' height='345' font-family='Helvetica,Arial,sans-serif' font-size='11'>
+<rect width='760' height='345' fill='white'/>
+<text x='70' y='22' font-size='14' font-weight='bold'>Attribution of steps versus amplitude (level channel only)</text>
+<text x='70' y='58' font-size='12' font-weight='bold'>correctly attributed, % of detected</text>
+<rect x='70' y='70' width='670' height='230' fill='none' stroke='#999'/>
+<line x1='70' x2='740' y1='300.0' y2='300.0' stroke='#eee'/>
+<text x='65' y='304.0' text-anchor='end'>0</text>
+<text x='70.0' y='315' text-anchor='middle'>2</text>
+<line x1='70' x2='740' y1='242.5' y2='242.5' stroke='#eee'/>
+<text x='65' y='246.5' text-anchor='end'>25</text>
+<text x='237.5' y='315' text-anchor='middle'>4</text>
+<line x1='70' x2='740' y1='185.0' y2='185.0' stroke='#eee'/>
+<text x='65' y='189.0' text-anchor='end'>50</text>
+<text x='405.0' y='315' text-anchor='middle'>6</text>
+<line x1='70' x2='740' y1='127.5' y2='127.5' stroke='#eee'/>
+<text x='65' y='131.5' text-anchor='end'>75</text>
+<text x='572.5' y='315' text-anchor='middle'>8</text>
+<line x1='70' x2='740' y1='70.0' y2='70.0' stroke='#eee'/>
+<text x='65' y='74.0' text-anchor='end'>100</text>
+<text x='740.0' y='315' text-anchor='middle'>10</text>
+<text x='405' y='332' text-anchor='middle'>step amplitude (σ)</text>
+<text x='14' y='185' transform='rotate(-90 14 185)' text-anchor='middle'>%</text>
+<path d='M70.0 88.3 L153.8 75.8 L237.5 74.0 L321.3 74.2 L405.0 75.0 L572.5 76.3 L740.0 77.4' fill='none' stroke='#1f77b4' stroke-width='1.2' stroke-dasharray='5,3'/>
+<circle cx='70.0' cy='88.3' r='2.5' fill='#1f77b4'/>
+<circle cx='153.8' cy='75.8' r='2.5' fill='#1f77b4'/>
+<circle cx='237.5' cy='74.0' r='2.5' fill='#1f77b4'/>
+<circle cx='321.3' cy='74.2' r='2.5' fill='#1f77b4'/>
+<circle cx='405.0' cy='75.0' r='2.5' fill='#1f77b4'/>
+<circle cx='572.5' cy='76.3' r='2.5' fill='#1f77b4'/>
+<circle cx='740.0' cy='77.4' r='2.5' fill='#1f77b4'/>
+<line x1='530' x2='550' y1='246' y2='246' stroke='#1f77b4' stroke-width='2' stroke-dasharray='5,3'/>
+<text x='555' y='250'>tank level shift</text>
+<path d='M70.0 245.0 L153.8 182.6 L237.5 95.9 L321.3 72.8 L405.0 70.0 L572.5 70.0 L740.0 70.0' fill='none' stroke='#d62728' stroke-width='1.2'/>
+<circle cx='70.0' cy='245.0' r='2.5' fill='#d62728'/>
+<circle cx='153.8' cy='182.6' r='2.5' fill='#d62728'/>
+<circle cx='237.5' cy='95.9' r='2.5' fill='#d62728'/>
+<circle cx='321.3' cy='72.8' r='2.5' fill='#d62728'/>
+<circle cx='405.0' cy='70.0' r='2.5' fill='#d62728'/>
+<circle cx='572.5' cy='70.0' r='2.5' fill='#d62728'/>
+<circle cx='740.0' cy='70.0' r='2.5' fill='#d62728'/>
+<line x1='530' x2='550' y1='260' y2='260' stroke='#d62728' stroke-width='2'/>
+<text x='555' y='264'>tank bias step</text>
+<path d='M70.0 106.3 L153.8 81.8 L237.5 72.0 L321.3 71.6 L405.0 70.8 L572.5 70.8 L740.0 71.3' fill='none' stroke='#2ca02c' stroke-width='1.2' stroke-dasharray='5,3'/>
+<circle cx='70.0' cy='106.3' r='2.5' fill='#2ca02c'/>
+<circle cx='153.8' cy='81.8' r='2.5' fill='#2ca02c'/>
+<circle cx='237.5' cy='72.0' r='2.5' fill='#2ca02c'/>
+<circle cx='321.3' cy='71.6' r='2.5' fill='#2ca02c'/>
+<circle cx='405.0' cy='70.8' r='2.5' fill='#2ca02c'/>
+<circle cx='572.5' cy='70.8' r='2.5' fill='#2ca02c'/>
+<circle cx='740.0' cy='71.3' r='2.5' fill='#2ca02c'/>
+<line x1='530' x2='550' y1='274' y2='274' stroke='#2ca02c' stroke-width='2' stroke-dasharray='5,3'/>
+<text x='555' y='278'>thermal level shift</text>
+<path d='M70.0 273.7 L153.8 216.2 L237.5 118.9 L321.3 75.4 L405.0 70.5 L572.5 70.0 L740.0 70.0' fill='none' stroke='#ff7f0e' stroke-width='1.2'/>
+<circle cx='70.0' cy='273.7' r='2.5' fill='#ff7f0e'/>
+<circle cx='153.8' cy='216.2' r='2.5' fill='#ff7f0e'/>
+<circle cx='237.5' cy='118.9' r='2.5' fill='#ff7f0e'/>
+<circle cx='321.3' cy='75.4' r='2.5' fill='#ff7f0e'/>
+<circle cx='405.0' cy='70.5' r='2.5' fill='#ff7f0e'/>
+<circle cx='572.5' cy='70.0' r='2.5' fill='#ff7f0e'/>
+<circle cx='740.0' cy='70.0' r='2.5' fill='#ff7f0e'/>
+<line x1='530' x2='550' y1='288' y2='288' stroke='#ff7f0e' stroke-width='2'/>
+<text x='555' y='292'>thermal bias step</text>
+</svg>

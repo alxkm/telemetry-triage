@@ -1,0 +1,4 @@
+delta,events,detected,correct,undetermined,latency_median,false_alarms_per_hour
+20,2930,2810,2478,62,23.0,0.2281
+40,2930,2810,2547,62,43.0,0.2103
+80,2930,2810,2538,65,83.0,0.2281

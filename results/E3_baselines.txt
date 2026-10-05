@@ -1,0 +1,102 @@
+== TANK, triage (level only)
+fault              events   det% delayMed delayP90   latMed  extra
+LEVEL_SHIFT           109   92.7       14       18       85      0
+RAMP                  115   92.2       33       57      184      3
+REGIME_CHANGE         109  100.0       14       17       77     41
+BIAS_STEP             111   98.2        0        1       40      0
+LINEAR_DRIFT          118   91.5       36       73      183      4
+NOISE_GROWTH          112  100.0        3       15       43      9
+STUCK_AT_LAST         109  100.0        4        4       44      3
+SATURATION            112  100.0       16       21       56     33
+SPIKE                 115  100.0        0        0       40      0
+SUBSTITUTION          116   99.1        0        0       40      0
+REPLAY                114   99.1        3        3       43      1
+ZERO_OR_BOUNDARY      111   99.1        0        0       40      0
+DROPOUT               114  100.0        0        0       40      1
+false alarms: 37 over 170.9 h monitored = 0.217 /h
+
+== TANK, rolling z-score
+fault              events   det% delayMed delayP90   latMed  extra
+LEVEL_SHIFT           109  100.0       23       30       23      5
+RAMP                  115   56.5       53       81       53      5
+REGIME_CHANGE         109   86.2       22       37       22      2
+BIAS_STEP             111  100.0        0        0        0      0
+LINEAR_DRIFT          118   47.5       47       81       47      8
+NOISE_GROWTH          112  100.0        2        9        2    158
+STUCK_AT_LAST         109   23.9      208      250      208      5
+SATURATION            112   28.6      302      386      302      8
+SPIKE                 115   99.1        0        0        0      0
+SUBSTITUTION          116  100.0        0        0        0      0
+REPLAY                114    0.0      NaN      NaN      NaN      0
+ZERO_OR_BOUNDARY      111  100.0        0        0        0      0
+DROPOUT               114    2.6      115      125      115      0
+false alarms: 70 over 170.9 h monitored = 0.410 /h
+
+== TANK, restarted CUSUM
+fault              events   det% delayMed delayP90   latMed  extra
+LEVEL_SHIFT           109  100.0       12       19       12    105
+RAMP                  115  100.0       24       37       24    388
+REGIME_CHANGE         109  100.0       12       18       12    674
+BIAS_STEP             111   98.2        1       11        1      7
+LINEAR_DRIFT          118  100.0       27       45       27    397
+NOISE_GROWTH          112  100.0        6       26        6    654
+STUCK_AT_LAST         109   73.4       21      181       21     52
+SATURATION            112   57.1      150      390      150     17
+SPIKE                 115   71.3        0       33        0     10
+SUBSTITUTION          116   99.1        0       39        0     55
+REPLAY                114   27.2       82      127       82      1
+ZERO_OR_BOUNDARY      111  100.0        0       17        0     70
+DROPOUT               114   30.7       75      116       75      0
+false alarms: 1639 over 170.9 h monitored = 9.593 /h
+
+== THERMAL, triage (level only)
+fault              events   det% delayMed delayP90   latMed  extra
+LEVEL_SHIFT           109   85.3       18       31      110      0
+RAMP                  115   83.5       80      126      222      0
+REGIME_CHANGE         109   65.1       25       56       97      2
+BIAS_STEP             111   98.2        0        1       40      0
+LINEAR_DRIFT          118   91.5       36       73      183      4
+NOISE_GROWTH          112  100.0        3       15       43      9
+STUCK_AT_LAST         109  100.0        4        4       44      3
+SATURATION            112  100.0       16       21       56     33
+SPIKE                 115  100.0        0        0       40      0
+SUBSTITUTION          116   99.1        0        0       40      0
+REPLAY                114   99.1        3        3       43      1
+ZERO_OR_BOUNDARY      111   99.1        0        0       40      0
+DROPOUT               114  100.0        0        0       40      1
+false alarms: 34 over 166.8 h monitored = 0.204 /h
+
+== THERMAL, rolling z-score
+fault              events   det% delayMed delayP90   latMed  extra
+LEVEL_SHIFT           109   66.1       32       54       32      4
+RAMP                  115   40.9       96      128       96      2
+REGIME_CHANGE         109   44.0       43       83       43      1
+BIAS_STEP             111  100.0        0        0        0      0
+LINEAR_DRIFT          118   47.5       47       81       47      8
+NOISE_GROWTH          112  100.0        2        9        2    158
+STUCK_AT_LAST         109   23.9      208      250      208      5
+SATURATION            112   28.6      302      386      302      8
+SPIKE                 115   99.1        0        0        0      0
+SUBSTITUTION          116  100.0        0        0        0      0
+REPLAY                114    0.0      NaN      NaN      NaN      0
+ZERO_OR_BOUNDARY      111  100.0        0        0        0      0
+DROPOUT               114    2.6      115      125      115      0
+false alarms: 69 over 166.8 h monitored = 0.414 /h
+
+== THERMAL, restarted CUSUM
+fault              events   det% delayMed delayP90   latMed  extra
+LEVEL_SHIFT           109  100.0       15       26       15    257
+RAMP                  115  100.0       53       82       53    430
+REGIME_CHANGE         109  100.0       21       37       21    414
+BIAS_STEP             111   98.2        1        2        1      7
+LINEAR_DRIFT          118  100.0       26       42       26    397
+NOISE_GROWTH          112  100.0        6       23        6    656
+STUCK_AT_LAST         109   75.2       18      180       18     52
+SATURATION            112   58.0      180      397      180     15
+SPIKE                 115   73.9        0        2        0     11
+SUBSTITUTION          116   99.1        0       12        0     55
+REPLAY                114   26.3       90      127       90      0
+ZERO_OR_BOUNDARY      111  100.0        0       17        0     73
+DROPOUT               114   31.6       59      109       59      0
+false alarms: 1640 over 166.8 h monitored = 9.834 /h
+

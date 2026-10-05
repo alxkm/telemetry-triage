@@ -1,0 +1,103 @@
+file,rows,first_anomaly,last_anomaly,monitored_channels,detector,detected,delay_s,false_alarms,first_cause,first_channel
+anomaly-free/anomaly-free.csv,9405,-1,-1,8,triage (level only),,,85,,
+anomaly-free/anomaly-free.csv,9405,-1,-1,8,rolling z-score,,,30,,
+anomaly-free/anomaly-free.csv,9405,-1,-1,8,restarted CUSUM,,,433,,
+other/1.csv,745,557,744,8,triage (level only),false,,2,,
+other/1.csv,745,557,744,8,rolling z-score,true,52,0,UNDETERMINED,Volume Flow RateRMS
+other/1.csv,745,557,744,8,restarted CUSUM,true,8,7,UNDETERMINED,Accelerometer1RMS
+other/10.csv,1327,570,1155,8,triage (level only),true,17,2,PROCESS,Accelerometer1RMS
+other/10.csv,1327,570,1155,8,rolling z-score,true,43,1,UNDETERMINED,Thermocouple
+other/10.csv,1327,570,1155,8,restarted CUSUM,true,10,13,UNDETERMINED,Thermocouple
+other/11.csv,1190,570,1020,8,triage (level only),true,8,2,DATA_PATH,Accelerometer1RMS
+other/11.csv,1190,570,1020,8,rolling z-score,true,15,1,UNDETERMINED,Accelerometer2RMS
+other/11.csv,1190,570,1020,8,restarted CUSUM,true,7,12,UNDETERMINED,Accelerometer2RMS
+other/12.csv,1048,568,876,8,triage (level only),true,33,5,PROCESS,Accelerometer1RMS
+other/12.csv,1048,568,876,8,rolling z-score,true,68,1,UNDETERMINED,Volume Flow RateRMS
+other/12.csv,1048,568,876,8,restarted CUSUM,true,4,10,UNDETERMINED,Current
+other/13.csv,923,495,759,8,triage (level only),true,3,1,DATA_PATH,Accelerometer1RMS
+other/13.csv,923,495,759,8,rolling z-score,true,2,0,UNDETERMINED,Accelerometer1RMS
+other/13.csv,923,495,759,8,restarted CUSUM,true,6,6,UNDETERMINED,Accelerometer2RMS
+other/14.csv,905,571,872,8,triage (level only),true,13,4,PROCESS,Thermocouple
+other/14.csv,905,571,872,8,rolling z-score,true,5,0,UNDETERMINED,Accelerometer1RMS
+other/14.csv,905,571,872,8,restarted CUSUM,true,1,10,UNDETERMINED,Accelerometer1RMS
+other/3.csv,1137,568,965,8,triage (level only),true,12,2,PROCESS,Volume Flow RateRMS
+other/3.csv,1137,568,965,8,rolling z-score,true,10,0,UNDETERMINED,Volume Flow RateRMS
+other/3.csv,1137,568,965,8,restarted CUSUM,true,10,9,UNDETERMINED,Volume Flow RateRMS
+other/4.csv,1191,796,1190,8,triage (level only),true,39,3,PROCESS,Current
+other/4.csv,1191,796,1190,8,rolling z-score,true,358,1,UNDETERMINED,Volume Flow RateRMS
+other/4.csv,1191,796,1190,8,restarted CUSUM,true,24,14,UNDETERMINED,Thermocouple
+other/5.csv,1155,572,981,8,triage (level only),true,0,4,PROCESS,Accelerometer2RMS
+other/5.csv,1155,572,981,8,rolling z-score,true,0,0,UNDETERMINED,Accelerometer1RMS
+other/5.csv,1155,572,981,8,restarted CUSUM,true,0,14,UNDETERMINED,Accelerometer1RMS
+other/6.csv,1147,573,974,8,triage (level only),true,7,5,DATA_PATH,Current
+other/6.csv,1147,573,974,8,rolling z-score,true,25,2,UNDETERMINED,Pressure
+other/6.csv,1147,573,974,8,restarted CUSUM,true,1,13,UNDETERMINED,Accelerometer2RMS
+other/7.csv,1090,572,918,8,triage (level only),true,1,4,PROCESS,Accelerometer2RMS
+other/7.csv,1090,572,918,8,rolling z-score,true,1,1,UNDETERMINED,Accelerometer2RMS
+other/7.csv,1090,572,918,8,restarted CUSUM,true,1,7,UNDETERMINED,Accelerometer2RMS
+other/8.csv,1147,572,974,8,triage (level only),true,1,6,DATA_PATH,Accelerometer1RMS
+other/8.csv,1147,572,974,8,rolling z-score,true,1,1,UNDETERMINED,Accelerometer1RMS
+other/8.csv,1147,572,974,8,restarted CUSUM,true,1,14,UNDETERMINED,Accelerometer2RMS
+other/9.csv,1144,572,972,8,triage (level only),true,3,2,PROCESS,Accelerometer1RMS
+other/9.csv,1144,572,972,8,rolling z-score,true,2,0,UNDETERMINED,Accelerometer1RMS
+other/9.csv,1144,572,972,8,restarted CUSUM,true,0,16,UNDETERMINED,Current
+valve1/0.csv,1147,573,973,8,triage (level only),true,10,3,UNDETERMINED,Current
+valve1/0.csv,1147,573,973,8,rolling z-score,true,51,0,UNDETERMINED,Temperature
+valve1/0.csv,1147,573,973,8,restarted CUSUM,true,5,10,UNDETERMINED,Volume Flow RateRMS
+valve1/1.csv,1145,572,973,8,triage (level only),true,59,3,INSTRUMENT,Volume Flow RateRMS
+valve1/1.csv,1145,572,973,8,rolling z-score,true,1,0,UNDETERMINED,Accelerometer2RMS
+valve1/1.csv,1145,572,973,8,restarted CUSUM,true,3,8,UNDETERMINED,Current
+valve1/10.csv,1146,573,973,8,triage (level only),true,56,2,UNDETERMINED,Current
+valve1/10.csv,1146,573,973,8,rolling z-score,true,58,2,UNDETERMINED,Volume Flow RateRMS
+valve1/10.csv,1146,573,973,8,restarted CUSUM,true,21,10,UNDETERMINED,Thermocouple
+valve1/11.csv,1141,572,970,8,triage (level only),true,51,4,PROCESS,Volume Flow RateRMS
+valve1/11.csv,1141,572,970,8,rolling z-score,true,53,1,UNDETERMINED,Volume Flow RateRMS
+valve1/11.csv,1141,572,970,8,restarted CUSUM,true,4,8,UNDETERMINED,Temperature
+valve1/12.csv,1140,570,968,8,triage (level only),true,6,3,PROCESS,Volume Flow RateRMS
+valve1/12.csv,1140,570,968,8,rolling z-score,true,3,3,UNDETERMINED,Volume Flow RateRMS
+valve1/12.csv,1140,570,968,8,restarted CUSUM,true,2,15,UNDETERMINED,Accelerometer1RMS
+valve1/13.csv,1140,570,968,8,triage (level only),true,38,1,PROCESS,Volume Flow RateRMS
+valve1/13.csv,1140,570,968,8,rolling z-score,true,35,0,UNDETERMINED,Volume Flow RateRMS
+valve1/13.csv,1140,570,968,8,restarted CUSUM,true,4,15,UNDETERMINED,Accelerometer1RMS
+valve1/14.csv,1139,569,967,8,triage (level only),true,44,3,PROCESS,Volume Flow RateRMS
+valve1/14.csv,1139,569,967,8,rolling z-score,true,49,0,UNDETERMINED,Volume Flow RateRMS
+valve1/14.csv,1139,569,967,8,restarted CUSUM,true,42,9,UNDETERMINED,Volume Flow RateRMS
+valve1/15.csv,1150,574,977,8,triage (level only),true,54,3,PROCESS,Volume Flow RateRMS
+valve1/15.csv,1150,574,977,8,rolling z-score,true,52,0,UNDETERMINED,Volume Flow RateRMS
+valve1/15.csv,1150,574,977,8,restarted CUSUM,true,5,12,UNDETERMINED,Temperature
+valve1/2.csv,1075,566,902,8,triage (level only),true,0,3,PROCESS,Temperature
+valve1/2.csv,1075,566,902,8,rolling z-score,true,300,3,UNDETERMINED,Volume Flow RateRMS
+valve1/2.csv,1075,566,902,8,restarted CUSUM,true,4,18,UNDETERMINED,Temperature
+valve1/3.csv,1148,573,976,8,triage (level only),true,9,2,INSTRUMENT,Volume Flow RateRMS
+valve1/3.csv,1148,573,976,8,rolling z-score,true,55,0,UNDETERMINED,Volume Flow RateRMS
+valve1/3.csv,1148,573,976,8,restarted CUSUM,true,6,9,UNDETERMINED,Volume Flow RateRMS
+valve1/4.csv,1095,573,921,8,triage (level only),true,5,1,PROCESS,Volume Flow RateRMS
+valve1/4.csv,1095,573,921,8,rolling z-score,true,105,0,UNDETERMINED,Thermocouple
+valve1/4.csv,1095,573,921,8,restarted CUSUM,true,6,11,UNDETERMINED,Volume Flow RateRMS
+valve1/5.csv,1154,577,979,8,triage (level only),true,38,1,PROCESS,Temperature
+valve1/5.csv,1154,577,979,8,rolling z-score,true,50,0,UNDETERMINED,Volume Flow RateRMS
+valve1/5.csv,1154,577,979,8,restarted CUSUM,true,12,13,UNDETERMINED,Thermocouple
+valve1/6.csv,1154,576,980,8,triage (level only),true,50,3,PROCESS,Temperature
+valve1/6.csv,1154,576,980,8,rolling z-score,true,60,0,UNDETERMINED,Volume Flow RateRMS
+valve1/6.csv,1154,576,980,8,restarted CUSUM,true,8,6,UNDETERMINED,Current
+valve1/7.csv,1094,578,982,8,triage (level only),true,89,2,PROCESS,Temperature
+valve1/7.csv,1094,578,982,8,rolling z-score,true,56,0,UNDETERMINED,Volume Flow RateRMS
+valve1/7.csv,1094,578,982,8,restarted CUSUM,true,2,7,UNDETERMINED,Temperature
+valve1/8.csv,1144,572,971,8,triage (level only),true,3,2,INSTRUMENT,Volume Flow RateRMS
+valve1/8.csv,1144,572,971,8,rolling z-score,true,3,1,UNDETERMINED,Volume Flow RateRMS
+valve1/8.csv,1144,572,971,8,restarted CUSUM,true,5,12,UNDETERMINED,Volume Flow RateRMS
+valve1/9.csv,1148,574,975,8,triage (level only),true,34,4,PROCESS,Volume Flow RateRMS
+valve1/9.csv,1148,574,975,8,rolling z-score,true,34,2,UNDETERMINED,Volume Flow RateRMS
+valve1/9.csv,1148,574,975,8,restarted CUSUM,true,22,15,UNDETERMINED,Current
+valve2/0.csv,1125,562,955,8,triage (level only),true,0,4,DATA_PATH,Accelerometer1RMS
+valve2/0.csv,1125,562,955,8,rolling z-score,true,0,0,UNDETERMINED,Accelerometer1RMS
+valve2/0.csv,1125,562,955,8,restarted CUSUM,true,0,11,UNDETERMINED,Accelerometer1RMS
+valve2/1.csv,1063,560,892,8,triage (level only),true,16,1,PROCESS,Temperature
+valve2/1.csv,1063,560,892,8,rolling z-score,true,52,1,UNDETERMINED,Volume Flow RateRMS
+valve2/1.csv,1063,560,892,8,restarted CUSUM,true,8,8,UNDETERMINED,Accelerometer2RMS
+valve2/2.csv,1129,565,959,8,triage (level only),true,18,2,DATA_PATH,Accelerometer1RMS
+valve2/2.csv,1129,565,959,8,rolling z-score,true,18,1,UNDETERMINED,Accelerometer1RMS
+valve2/2.csv,1129,565,959,8,restarted CUSUM,true,13,10,UNDETERMINED,Accelerometer2RMS
+valve2/3.csv,995,564,958,8,triage (level only),true,51,3,PROCESS,Volume Flow RateRMS
+valve2/3.csv,995,564,958,8,rolling z-score,true,27,0,UNDETERMINED,Pressure
+valve2/3.csv,995,564,958,8,restarted CUSUM,true,42,7,UNDETERMINED,Volume Flow RateRMS

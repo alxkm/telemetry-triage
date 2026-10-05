@@ -1,0 +1,4 @@
+3f067087f217afc6c16f0d0ca90d194bd7a55726
+
+Vendored unmodified from TheAlgorithms/Java at this commit (MIT, see LICENSE-TheAlgorithms).
+MedianFilter and ExponentialMovingAverage were added with TheAlgorithms/Java#7598 and #7600.
