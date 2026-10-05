@@ -42,7 +42,7 @@ public final class Experiments {
     }
 
     public static void main(String[] args) throws IOException {
-        List<String> which = args.length == 0 ? List.of("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8", "FIG") : Arrays.asList(args);
+        List<String> which = args.length == 0 ? List.of("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8", "E9", "E10", "E11", "FIG") : Arrays.asList(args);
         Files.createDirectories(OUT.resolve("figures"));
         SUMMARY.append("# Results summary\n\n");
         SUMMARY.append("Generated ").append(ZonedDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME))
@@ -62,11 +62,14 @@ public final class Experiments {
                 case "E6" -> cost();
                 case "E7" -> skab();
                 case "E8" -> ablation();
+                case "E9" -> semiSynthetic();
+                case "E10" -> bootstrap();
+                case "E11" -> misses();
                 case "FIG" -> exampleFigure();
                 default -> throw new IllegalArgumentException(e);
             }
         }
-        if (which.size() >= 9) {
+        if (which.size() >= 12) {
             write("SUMMARY.md", SUMMARY.toString());
         } else {
             System.out.println(SUMMARY);
@@ -499,6 +502,169 @@ public final class Experiments {
     private static double typeAcc(Tally t, FaultType f) {
         Tally.PerType p = t.perType.get(f);
         return pct(p.predicted.get(f.cause()), p.detected);
+    }
+
+    // ---------------------------------------------------------------- E9
+
+    private static void semiSynthetic() throws IOException {
+        Path file = Path.of("datasets", "skab", "anomaly-free", "anomaly-free.csv");
+        if (!Files.exists(file)) {
+            SUMMARY.append("## E9 — semi-synthetic\n\nSKAB not found; run `datasets/download_skab.sh`.\n\n");
+            return;
+        }
+        SkabLoader.SkabFile f = SkabLoader.read(file, Path.of("datasets", "skab"));
+        Tally pooled = new Tally();
+        StringBuilder csv = new StringBuilder("channel,sigma,boundary,events,detected,correct,undetermined,false_alarms,monitored_hours\n");
+        StringBuilder md = new StringBuilder("## E9 — semi-synthetic: the catalogue injected into recorded SKAB channels (level channel only)\n\n");
+        md.append("Base: the eight channels of SKAB `anomaly-free.csv` (9,405 rows, 1 Hz). Amplitudes in units of each channel's noise as the method estimates it "
+                + "(the σ̂ of its own calibration phase A on the first 300 rows: the robust first-difference estimate, or the standard deviation where the channel is quantized); process changes are set-point moves limited to 0.15σ per sample, declared as the plausible rate; "
+                + "seeds 3000–3019 per channel, run once. Caveat: this file was used during development to fix two calibration rules (TUNING.md, change 9); "
+                + "no attribution threshold was tuned on it.\n\n");
+        md.append("| channel | σ | events | detected | correct of detected | undetermined | false alarms per hour |\n|---|---|---|---|---|---|---|\n");
+        for (int c = 0; c < f.channels().length; c++) {
+            double[] base = f.channel(c);
+            // amplitudes in the method's own noise scale: run its calibration phase A on the same rows and read σ̂
+            TriageChannel probe = new TriageChannel(ChannelSpec.unconstrained(f.channels()[c]), TriageConfig.defaults());
+            for (int i = 0; i <= TriageConfig.defaults().calibrationA(); i++) {
+                probe.update(base[i]);
+            }
+            double sigma = probe.degenerate() ? 0.0 : probe.sigma();
+            if (!(sigma > 0)) {
+                md.append(String.format(Locale.ROOT, "| %s | 0 | constant in calibration, not monitored | | | | |%n", f.channels()[c]));
+                continue;
+            }
+            double min = Double.POSITIVE_INFINITY;
+            double max = Double.NEGATIVE_INFINITY;
+            boolean hasZero = false;
+            for (double v : base) {
+                min = Math.min(min, v);
+                max = Math.max(max, v);
+                hasZero |= v == 0.0;
+            }
+            double boundary = hasZero ? 65535.0 : 0.0;
+            ChannelSpec spec = new ChannelSpec(f.channels()[c], min - 50 * sigma, max + 50 * sigma, Scenario.SEMI_MAX_RATE * sigma, new double[] {boundary});
+            Tally t = new Tally();
+            for (long seed = 3000; seed < 3020; seed++) {
+                Scenario sc = Scenario.semiSynthetic(base, sigma, boundary, seed, Bench.GAP);
+                t.run(sc, Detector.triage(spec, TriageConfig.defaults(), false), Bench.WARMUP, Bench.TAIL);
+            }
+            pooled.add(t);
+            int ev = 0;
+            int det = 0;
+            int cor = 0;
+            int und = 0;
+            for (FaultType ft : FaultType.values()) {
+                Tally.PerType p = t.perType.get(ft);
+                ev += p.events;
+                det += p.detected;
+                cor += p.predicted.get(ft.cause());
+                und += p.predicted.get(Cause.UNDETERMINED);
+            }
+            md.append(String.format(Locale.ROOT, "| %s | %.4g | %d | %.1f%% | %.1f%% | %.1f%% | %.2f |%n", f.channels()[c], sigma, ev, pct(det, ev), pct(cor, det), pct(und, det), t.falseAlarmsPerHour()));
+            csv.append(String.format(Locale.ROOT, "%s,%.6g,%.1f,%d,%d,%d,%d,%d,%.3f%n", f.channels()[c], sigma, boundary, ev, det, cor, und, t.falseAlarms, t.monitoredSamples / 3600.0));
+        }
+        write("E9_semisynthetic.csv", csv.toString());
+        write("E9_semisynthetic.txt", Report.perTypeTable(pooled, true));
+        md.append("\nAll channels pooled:\n\n").append(summaryBlock(pooled)).append('\n');
+        SUMMARY.append(md);
+    }
+
+    // ---------------------------------------------------------------- E10
+
+    private static void bootstrap() throws IOException {
+        StringBuilder md = new StringBuilder("## E10 — 95% bootstrap intervals over runs (test seeds, both models; 2,000 resamples of the 100 runs)\n\n");
+        md.append("| channels | detected | correct of detected | undetermined of detected | false alarms per hour |\n|---|---|---|---|---|\n");
+        StringBuilder csv = new StringBuilder("channels,metric,point,lo95,hi95\n");
+        for (boolean rate : new boolean[] {false, true}) {
+            List<Tally> runs = new ArrayList<>();
+            for (ProcessModel m : ProcessModel.values()) {
+                for (long seed = Bench.TEST_SEED_FROM; seed < Bench.TEST_SEED_TO; seed++) {
+                    Tally t = new Tally();
+                    t.run(Scenario.generate(m, seed, Bench.LENGTH, Bench.GAP), Detector.triage(Bench.spec(m), TriageConfig.defaults(), rate), Bench.WARMUP, Bench.TAIL);
+                    runs.add(t);
+                }
+            }
+            double[] point = metrics(runs);
+            java.util.SplittableRandom rnd = new java.util.SplittableRandom(20261005L);
+            int b = 2000;
+            double[][] samples = new double[4][b];
+            for (int i = 0; i < b; i++) {
+                List<Tally> res = new ArrayList<>();
+                for (int k = 0; k < runs.size(); k++) {
+                    res.add(runs.get(rnd.nextInt(runs.size())));
+                }
+                double[] mm = metrics(res);
+                for (int j = 0; j < 4; j++) {
+                    samples[j][i] = mm[j];
+                }
+            }
+            String[] names = {"detected", "correct_of_detected", "undetermined_of_detected", "false_alarms_per_hour"};
+            String[] cells = new String[4];
+            for (int j = 0; j < 4; j++) {
+                Arrays.sort(samples[j]);
+                double lo = samples[j][(int) (0.025 * b)];
+                double hi = samples[j][(int) (0.975 * b) - 1];
+                cells[j] = j < 3 ? String.format(Locale.ROOT, "%.1f%% [%.1f, %.1f]", point[j], lo, hi) : String.format(Locale.ROOT, "%.3f [%.3f, %.3f]", point[j], lo, hi);
+                csv.append(String.format(Locale.ROOT, "%s,%s,%.4f,%.4f,%.4f%n", rate ? "level+rate" : "level", names[j], point[j], lo, hi));
+            }
+            md.append(String.format(Locale.ROOT, "| %s | %s | %s | %s | %s |%n", rate ? "level + rate" : "level only", cells[0], cells[1], cells[2], cells[3]));
+        }
+        write("E10_bootstrap.csv", csv.toString());
+        SUMMARY.append(md).append('\n');
+    }
+
+    /** Detected %, correct of detected %, undetermined of detected %, false alarms per hour — pooled over the runs. */
+    private static double[] metrics(List<Tally> runs) {
+        long ev = 0;
+        long det = 0;
+        long cor = 0;
+        long und = 0;
+        long fa = 0;
+        long mon = 0;
+        for (Tally t : runs) {
+            for (FaultType ft : FaultType.values()) {
+                Tally.PerType p = t.perType.get(ft);
+                ev += p.events;
+                det += p.detected;
+                cor += p.predicted.get(ft.cause());
+                und += p.predicted.get(Cause.UNDETERMINED);
+            }
+            fa += t.falseAlarms;
+            mon += t.monitoredSamples;
+        }
+        return new double[] {100.0 * det / ev, 100.0 * cor / det, 100.0 * und / det, fa / (mon / 3600.0)};
+    }
+
+    // ---------------------------------------------------------------- E11
+
+    private static void misses() throws IOException {
+        Tally pooled = new Tally();
+        for (ProcessModel m : ProcessModel.values()) {
+            for (long seed = Bench.TEST_SEED_FROM; seed < Bench.TEST_SEED_TO; seed++) {
+                pooled.run(Scenario.generate(m, seed, Bench.LENGTH, Bench.GAP), Detector.triage(Bench.spec(m), TriageConfig.defaults(), false), Bench.WARMUP, Bench.TAIL);
+            }
+        }
+        StringBuilder md = new StringBuilder("## E11 — why events were missed (test seeds, both models, level channel only)\n\n");
+        md.append("*Absorbed*: a decision window opened before the onset by an earlier trigger was still open at the onset, so the event was decided inside it and its "
+                + "trigger is not in the event window. *Silent*: no window was open and no detector fired within the event window.\n\n");
+        md.append("| injection | events | missed | absorbed | silent |\n|---|---|---|---|---|\n");
+        StringBuilder csv = new StringBuilder("fault,events,missed,absorbed,silent\n");
+        int ta = 0;
+        int ts = 0;
+        for (FaultType ft : FaultType.values()) {
+            Tally.PerType p = pooled.perType.get(ft);
+            int missed = p.events - p.detected;
+            if (missed == 0) {
+                continue;
+            }
+            ta += p.missedAbsorbed;
+            ts += p.missedSilent;
+            md.append(String.format(Locale.ROOT, "| %s | %d | %d | %d | %d |%n", ft, p.events, missed, p.missedAbsorbed, p.missedSilent));
+            csv.append(String.format(Locale.ROOT, "%s,%d,%d,%d,%d%n", ft, p.events, missed, p.missedAbsorbed, p.missedSilent));
+        }
+        md.append(String.format(Locale.ROOT, "| all | | %d | %d | %d |%n%n", ta + ts, ta, ts));
+        write("E11_misses.csv", csv.toString());
+        SUMMARY.append(md);
     }
 
     // ---------------------------------------------------------------- figure

@@ -18,7 +18,7 @@ mvn -q package                                # builds and runs the unit tests
 java -cp target/classes triage.bench.Experiments
 ```
 
-The last command takes about six minutes on one core and writes `results/`:
+The last command takes about eight minutes on one core and writes `results/`:
 
 | file | content |
 |---|---|
@@ -31,6 +31,9 @@ The last command takes about six minutes on one core and writes `results/`:
 | `E6_cost.csv` | ns per sample and state size |
 | `E7_skab.csv` | SKAB, per file and detector |
 | `E8_ablation.txt` | without the plausible-rate test; without deferral |
+| `E9_semisynthetic.*` | the catalogue injected into the eight recorded channels of SKAB's anomaly-free file |
+| `E10_bootstrap.csv` | 95% bootstrap intervals over the 100 test runs |
+| `E11_misses.csv` | missed events, absorbed by an open window or silent |
 | `figures/example_events.svg` | four injected events with triggers and decisions |
 
 Synthetic results are deterministic for a given seed. Single experiments: `... Experiments E4 E7`.
@@ -65,6 +68,7 @@ Used in the evaluated bank: `KalmanFilter`, `ComplementaryFilter`, `CusumDetecto
   configuration; `docs/TUNING.md` lists every change. Test seeds 2000–2049 and the 34 labelled SKAB files
   were run only after the freeze.
 - On SKAB the only change is a shorter calibration (200 + 200 rows), because the anomalies begin near row 570.
+- E9 injects into SKAB's anomaly-free file, which was used during development for two calibration rules (TUNING.md, change 9); no attribution threshold was tuned on it. Its seeds (3000–3019) were run once.
 - One sample is taken as one second for rates per hour.
 
 ## Departures from the original plan (`code_plan.md`)

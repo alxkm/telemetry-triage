@@ -1,0 +1,9 @@
+channels,metric,point,lo95,hi95
+level,detected,95.9044,95.1120,96.6883
+level,correct_of_detected,90.6406,90.0357,91.2656
+level,undetermined_of_detected,2.2064,1.6979,2.7748
+level,false_alarms_per_hour,0.2103,0.1573,0.2634
+level+rate,detected,96.0410,95.2657,96.8194
+level+rate,correct_of_detected,99.0760,98.6776,99.4334
+level+rate,undetermined_of_detected,0.0000,0.0000,0.0000
+level+rate,false_alarms_per_hour,0.2103,0.1573,0.2634

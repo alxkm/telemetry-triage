@@ -39,6 +39,107 @@ public final class Scenario {
         return generate(model, seed, length, gap, null, Double.NaN);
     }
 
+    /**
+     * A semi-synthetic run: the events of the same catalogue and schedule injected into a recorded series. The
+     * recorded series supplies the noise and the background process; amplitudes are in units of {@code sigma}, the
+     * channel's noise as the method itself estimates it. Process changes are set-point moves limited to
+     * {@link #SEMI_MAX_RATE} σ per sample added to the recording. There is no rate channel.
+     *
+     * @param boundary the declared boundary value to inject for ZERO_OR_BOUNDARY (0.0 unless the recording contains it)
+     */
+    public static Scenario semiSynthetic(double[] base, double sigma, double boundary, long seed, int gap) {
+        SplittableRandom rnd = new SplittableRandom(seed);
+        int length = base.length;
+        List<Event> plan = schedule(rnd, length, gap, null, Double.NaN);
+        double[] y = new double[length];
+        double[] truth = new double[length];
+        double[] rate = new double[length];
+        java.util.Arrays.fill(rate, Double.NaN);
+        List<Event> events = new ArrayList<>();
+        double target = 0.0;
+        double d = 0.0;
+        double bias = 0.0;
+        double lastTransmitted = Double.NaN;
+        double regimePeriod = 150.0;
+        double regimeAmp = 0.0;
+        double cap = Double.NaN;
+        boolean shiftPending = false;
+        int shiftStart = 0;
+        double shiftAmp = 0.0;
+        Event active = null;
+        int k = 0;
+        for (int t = 0; t < length; t++) {
+            if (k < plan.size() && plan.get(k).start() == t) {
+                active = plan.get(k++);
+                switch (active.type()) {
+                    case LEVEL_SHIFT -> {
+                        target += active.amplitude();
+                        shiftPending = true;
+                        shiftStart = t;
+                        shiftAmp = active.amplitude();
+                    }
+                    case BIAS_STEP -> bias += active.amplitude();
+                    case REGIME_CHANGE -> {
+                        target += active.amplitude();
+                        regimePeriod = uniform(rnd, 100, 200);
+                        regimeAmp = uniform(rnd, 1.0, 2.0);
+                    }
+                    case SATURATION -> cap = (Double.isFinite(lastTransmitted) ? lastTransmitted : base[t]) + sigma * active.amplitude();
+                    default -> {
+                    }
+                }
+                if (active.type() != FaultType.LEVEL_SHIFT) {
+                    events.add(active);
+                }
+            }
+            boolean inside = active != null && t >= active.start() && t <= active.end();
+            FaultType type = inside ? active.type() : null;
+            if (type == FaultType.RAMP) {
+                target += active.amplitude();
+            }
+            double osc = type == FaultType.REGIME_CHANGE ? regimeAmp * Math.sin(2 * Math.PI * (t - active.start()) / regimePeriod) : 0.0;
+            d += Math.max(-SEMI_MAX_RATE, Math.min(SEMI_MAX_RATE, target + osc - d));
+            truth[t] = base[t] + sigma * d;
+            if (shiftPending && Math.abs(target - d) < 0.05 * Math.abs(shiftAmp)) {
+                events.add(new Event(FaultType.LEVEL_SHIFT, shiftStart, t, shiftAmp));
+                shiftPending = false;
+            }
+            if (type == FaultType.LINEAR_DRIFT) {
+                bias += active.amplitude();
+            }
+            double out = truth[t] + sigma * bias;
+            if (type == FaultType.NOISE_GROWTH) {
+                // the recording already carries noise of about sigma; add the rest to reach factor x sigma
+                out += sigma * Math.sqrt(active.amplitude() * active.amplitude() - 1.0) * rnd.nextGaussian();
+            }
+            if (type == FaultType.SATURATION) {
+                out = Math.min(out, cap);
+            }
+            if (type == FaultType.STUCK_AT_LAST && Double.isFinite(lastTransmitted)) {
+                out = lastTransmitted;
+            }
+            if (type != null) {
+                switch (type) {
+                    case SPIKE, SUBSTITUTION -> out = truth[t] + sigma * (bias + active.amplitude() + 0.5 * rnd.nextGaussian());
+                    case REPLAY -> out = y[t - (int) active.amplitude()];
+                    case ZERO_OR_BOUNDARY -> out = boundary;
+                    case DROPOUT -> out = Double.NaN;
+                    default -> {
+                    }
+                }
+            }
+            y[t] = out;
+            if (Double.isFinite(out) && (type == null || type.cause() != Cause.DATA_PATH)) {
+                lastTransmitted = out;
+            }
+        }
+        events.sort((a, b) -> Integer.compare(a.start(), b.start()));
+        return new Scenario(null, seed, y, rate, truth, events);
+    }
+
+    /** Largest injected process change per sample in the semi-synthetic runs, in σ; declared as the plausible rate. */
+    public static final double SEMI_MAX_RATE = 0.15;
+
     /** A run restricted to {@code only} (when not null), with a fixed step amplitude in σ (when not NaN). */
     public static Scenario generate(ProcessModel model, long seed, int length, int gap, List<FaultType> only, double fixedAmplitude) {
         SplittableRandom rnd = new SplittableRandom(seed);

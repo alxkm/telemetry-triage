@@ -1,0 +1,9 @@
+channel,sigma,boundary,events,detected,correct,undetermined,false_alarms,monitored_hours
+Accelerometer1RMS,0.00108609,0.0,255,211,177,0,315,31.663
+Accelerometer2RMS,0.00137021,0.0,255,239,219,6,61,31.663
+Current,0.276020,0.0,255,205,154,1,318,31.663
+Pressure,0.286916,0.0,255,194,168,8,27,31.663
+Temperature,0.122841,0.0,255,178,133,0,72,31.663
+Thermocouple,0.0420956,0.0,255,188,165,5,16,31.663
+Voltage,11.0129,0.0,255,245,224,6,2,31.663
+Volume Flow RateRMS,0.507627,0.0,255,189,153,5,101,31.663

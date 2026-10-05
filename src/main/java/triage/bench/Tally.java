@@ -21,6 +21,10 @@ public final class Tally {
         public int events;
         public int detected;
         public int extra;
+        /** Missed because a decision window opened before the onset was still open at the onset. */
+        public int missedAbsorbed;
+        /** Missed with no decision window open at the onset: no detector fired within the event window. */
+        public int missedSilent;
         public final List<Integer> delays = new ArrayList<>();
         public final List<Integer> latencies = new ArrayList<>();
         public final Map<Cause, Integer> predicted = new EnumMap<>(Cause.class);
@@ -91,6 +95,20 @@ public final class Tally {
                     }
                 }
             }
+            if (!matched) {
+                boolean absorbed = false;
+                for (Decision d : decisions) {
+                    if (d.triggerIndex() < e.start() && d.decisionIndex() >= e.start()) {
+                        absorbed = true;
+                        break;
+                    }
+                }
+                if (absorbed) {
+                    p.missedAbsorbed++;
+                } else {
+                    p.missedSilent++;
+                }
+            }
         }
         for (int i = 0; i < decisions.size(); i++) {
             Decision d = decisions.get(i);
@@ -99,6 +117,25 @@ public final class Tally {
                 falseAlarmByCause.merge(d.cause(), 1, Integer::sum);
             }
         }
+    }
+
+    /** Adds the counts of {@code other} to this tally (for pooling per-run tallies). */
+    public void add(Tally other) {
+        for (FaultType f : FaultType.values()) {
+            PerType a = perType.get(f);
+            PerType b = other.perType.get(f);
+            a.events += b.events;
+            a.detected += b.detected;
+            a.extra += b.extra;
+            a.missedAbsorbed += b.missedAbsorbed;
+            a.missedSilent += b.missedSilent;
+            a.delays.addAll(b.delays);
+            a.latencies.addAll(b.latencies);
+            b.predicted.forEach((c, n) -> a.predicted.merge(c, n, Integer::sum));
+        }
+        falseAlarms += other.falseAlarms;
+        monitoredSamples += other.monitoredSamples;
+        other.falseAlarmByCause.forEach((c, n) -> falseAlarmByCause.merge(c, n, Integer::sum));
     }
 
     public double falseAlarmsPerHour() {

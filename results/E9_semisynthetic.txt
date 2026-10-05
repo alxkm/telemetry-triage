@@ -1,0 +1,20 @@
+fault              events   det% delayMed delayP90   latMed  extra   PROC   INST   DATA  UNDET correct
+LEVEL_SHIFT           160   70.0       14       22       86      7     88     24      0      0   78.6%
+RAMP                  160   77.5       49      152      159     14     89     27      1      7   71.8%
+REGIME_CHANGE         152   86.8       16      183       81     85    103     26      1      2   78.0%
+BIAS_STEP             160   79.4        0        2       40      3      2    123      2      0   96.9%
+LINEAR_DRIFT          152   80.9       43      133      173     19     71     30      0     22   24.4%
+NOISE_GROWTH          160   98.1        6       23       46     32      0    157      0      0  100.0%
+STUCK_AT_LAST         160   62.5        4        4       44     30      4     96      0      0   96.0%
+SATURATION            152   69.7       22      325       62     51     14     87      5      0   82.1%
+SPIKE                 152   86.2        0        0       40     13      5      9    117      0   89.3%
+SUBSTITUTION          160   91.9        0        0       40     10      4     14    129      0   87.8%
+REPLAY                160   63.8        3        3       43     16      1      5     96      0   94.1%
+ZERO_OR_BOUNDARY      160   87.5        0        0       40      7      3      1    136      0   97.1%
+DROPOUT               152   97.4        0        0       40     15      4      2    142      0   95.9%
+false alarms: 912 over 253.3 h monitored = 3.600 /h
+false alarms by attributed cause: {PROCESS=300, INSTRUMENT=490, DATA_PATH=111, UNDETERMINED=11}
+truth\pred    events  missed    PROC    INST    DATA   UNDET  acc(det)
+PROCESS          472     104     280      77       2       9     76.1%
+INSTRUMENT       784     171      91     493       7      22     80.4%
+DATA_PATH        784     116      17      31     620       0     92.8%
