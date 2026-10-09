@@ -1,9 +1,9 @@
 channels,metric,point,lo95,hi95
-level,detected,95.9044,95.1120,96.6883
-level,correct_of_detected,90.6406,90.0357,91.2656
-level,undetermined_of_detected,2.2064,1.6979,2.7748
-level,false_alarms_per_hour,0.2103,0.1573,0.2634
-level+rate,detected,96.0410,95.2657,96.8194
-level+rate,correct_of_detected,99.0760,98.6776,99.4334
+level,detected,96.3290,95.6626,96.9966
+level,correct_of_detected,91.1785,90.5528,91.7952
+level,undetermined_of_detected,2.0819,1.5509,2.6611
+level,false_alarms_per_hour,0.2159,0.1596,0.2777
+level+rate,detected,96.5330,95.8899,97.1740
+level+rate,correct_of_detected,99.0141,98.6243,99.3671
 level+rate,undetermined_of_detected,0.0000,0.0000,0.0000
-level+rate,false_alarms_per_hour,0.2103,0.1573,0.2634
+level+rate,false_alarms_per_hour,0.2159,0.1596,0.2777

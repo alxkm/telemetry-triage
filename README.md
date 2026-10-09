@@ -68,6 +68,10 @@ Used in the evaluated bank: `KalmanFilter`, `ComplementaryFilter`, `CusumDetecto
   configuration; `docs/TUNING.md` lists every change. Test seeds 2000–2049 and the 34 labelled SKAB files
   were run only after the freeze.
 - On SKAB the only change is a shorter calibration (200 + 200 rows), because the anomalies begin near row 570.
+- For a given seed each process model draws its own random stream (`Scenario.stream`). Until 9 October 2026 the
+  two models shared one stream per seed, hence noise and fault schedule, so the non-process events of the two models
+  were near-duplicates; found in review, fixed, and every synthetic experiment re-run (the tank's runs are unchanged;
+  the configuration was not touched). Results of the earlier commit `6c3c65d` are superseded.
 - E9 injects into SKAB's anomaly-free file, which was used during development for two calibration rules (TUNING.md, change 9); no attribution threshold was tuned on it. Its seeds (3000–3019) were run once.
 - One sample is taken as one second for rates per hour.
 

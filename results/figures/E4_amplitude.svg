@@ -40,22 +40,22 @@
 <circle cx='740.0' cy='70.0' r='2.5' fill='#d62728'/>
 <line x1='530' x2='550' y1='260' y2='260' stroke='#d62728' stroke-width='2'/>
 <text x='555' y='264'>tank bias step</text>
-<path d='M70.0 106.3 L153.8 81.8 L237.5 72.0 L321.3 71.6 L405.0 70.8 L572.5 70.8 L740.0 71.3' fill='none' stroke='#2ca02c' stroke-width='1.2' stroke-dasharray='5,3'/>
-<circle cx='70.0' cy='106.3' r='2.5' fill='#2ca02c'/>
-<circle cx='153.8' cy='81.8' r='2.5' fill='#2ca02c'/>
-<circle cx='237.5' cy='72.0' r='2.5' fill='#2ca02c'/>
-<circle cx='321.3' cy='71.6' r='2.5' fill='#2ca02c'/>
-<circle cx='405.0' cy='70.8' r='2.5' fill='#2ca02c'/>
-<circle cx='572.5' cy='70.8' r='2.5' fill='#2ca02c'/>
+<path d='M70.0 197.8 L153.8 88.9 L237.5 73.1 L321.3 71.8 L405.0 71.6 L572.5 71.3 L740.0 71.3' fill='none' stroke='#2ca02c' stroke-width='1.2' stroke-dasharray='5,3'/>
+<circle cx='70.0' cy='197.8' r='2.5' fill='#2ca02c'/>
+<circle cx='153.8' cy='88.9' r='2.5' fill='#2ca02c'/>
+<circle cx='237.5' cy='73.1' r='2.5' fill='#2ca02c'/>
+<circle cx='321.3' cy='71.8' r='2.5' fill='#2ca02c'/>
+<circle cx='405.0' cy='71.6' r='2.5' fill='#2ca02c'/>
+<circle cx='572.5' cy='71.3' r='2.5' fill='#2ca02c'/>
 <circle cx='740.0' cy='71.3' r='2.5' fill='#2ca02c'/>
 <line x1='530' x2='550' y1='274' y2='274' stroke='#2ca02c' stroke-width='2' stroke-dasharray='5,3'/>
 <text x='555' y='278'>thermal level shift</text>
-<path d='M70.0 273.7 L153.8 216.2 L237.5 118.9 L321.3 75.4 L405.0 70.5 L572.5 70.0 L740.0 70.0' fill='none' stroke='#ff7f0e' stroke-width='1.2'/>
-<circle cx='70.0' cy='273.7' r='2.5' fill='#ff7f0e'/>
-<circle cx='153.8' cy='216.2' r='2.5' fill='#ff7f0e'/>
-<circle cx='237.5' cy='118.9' r='2.5' fill='#ff7f0e'/>
-<circle cx='321.3' cy='75.4' r='2.5' fill='#ff7f0e'/>
-<circle cx='405.0' cy='70.5' r='2.5' fill='#ff7f0e'/>
+<path d='M70.0 272.7 L153.8 220.1 L237.5 117.8 L321.3 76.7 L405.0 70.3 L572.5 70.0 L740.0 70.0' fill='none' stroke='#ff7f0e' stroke-width='1.2'/>
+<circle cx='70.0' cy='272.7' r='2.5' fill='#ff7f0e'/>
+<circle cx='153.8' cy='220.1' r='2.5' fill='#ff7f0e'/>
+<circle cx='237.5' cy='117.8' r='2.5' fill='#ff7f0e'/>
+<circle cx='321.3' cy='76.7' r='2.5' fill='#ff7f0e'/>
+<circle cx='405.0' cy='70.3' r='2.5' fill='#ff7f0e'/>
 <circle cx='572.5' cy='70.0' r='2.5' fill='#ff7f0e'/>
 <circle cx='740.0' cy='70.0' r='2.5' fill='#ff7f0e'/>
 <line x1='530' x2='550' y1='288' y2='288' stroke='#ff7f0e' stroke-width='2'/>

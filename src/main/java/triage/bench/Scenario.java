@@ -142,9 +142,17 @@ public final class Scenario {
 
     /** A run restricted to {@code only} (when not null), with a fixed step amplitude in σ (when not NaN). */
     public static Scenario generate(ProcessModel model, long seed, int length, int gap, List<FaultType> only, double fixedAmplitude) {
-        SplittableRandom rnd = new SplittableRandom(seed);
+        SplittableRandom rnd = new SplittableRandom(stream(model, seed));
         List<Event> plan = schedule(rnd, length, gap, only, fixedAmplitude);
         return synthesize(model, seed, length, plan, rnd);
+    }
+
+    /**
+     * The random stream of one run. Each process model draws its own stream for the same seed, so that the two models
+     * do not share noise or fault schedule (they did before 9 October 2026; the tank's stream is unchanged).
+     */
+    static long stream(ProcessModel model, long seed) {
+        return seed + 1_000_003L * model.ordinal();
     }
 
     private static List<Event> schedule(SplittableRandom rnd, int length, int gap, List<FaultType> only, double fixedAmplitude) {

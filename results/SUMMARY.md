@@ -1,6 +1,6 @@
 # Results summary
 
-Generated 2026-10-05T21:16:29.4023646+02:00 by `triage.bench.Experiments` on OpenJDK 64-Bit Server VM 21, Windows 10.
+Generated 2026-10-09T10:53:43.0343639+02:00 by `triage.bench.Experiments` on OpenJDK 64-Bit Server VM 21, Windows 10.
 
 Synthetic runs: 20000 samples each, test seeds 2000–2049 (50 per process model). One sample = 1 s.
 
@@ -8,57 +8,57 @@ Synthetic runs: 20000 samples each, test seeds 2000–2049 (50 per process model
 
 ```
 truth\pred    events  missed    PROC    INST    DATA   UNDET  acc(det)
-PROCESS          666      90     536       9       1      30     93.1%
-INSTRUMENT      1124      24     189     879       0      32     79.9%
-DATA_PATH       1140       6       2       0    1132       0     99.8%
+PROCESS          664      72     551       9       1      31     93.1%
+INSTRUMENT      1129      28     178     894       1      28     81.2%
+DATA_PATH       1149       8       2       0    1139       0     99.8%
 ```
 
-- events 2930, detected 2810 (95.9%); of detected: correct 2547 (90.6%), UNDETERMINED 62 (2.2%), wrong cause 201 (7.2%)
+- events 2942, detected 2834 (96.3%); of detected: correct 2584 (91.2%), UNDETERMINED 59 (2.1%), wrong cause 191 (6.7%)
 | true cause | events | detected | precision | recall | F1 | UNDETERMINED, % of detected |
 |---|---|---|---|---|---|---|
-| PROCESS | 666 | 86.5% | 73.7% | 80.5% | 77.0% | 5.2% |
-| INSTRUMENT | 1124 | 97.9% | 99.0% | 78.2% | 87.4% | 2.9% |
-| DATA_PATH | 1140 | 99.5% | 99.9% | 99.3% | 99.6% | 0.0% |
+| PROCESS | 664 | 89.2% | 75.4% | 83.0% | 79.0% | 5.2% |
+| INSTRUMENT | 1129 | 97.5% | 99.0% | 79.2% | 88.0% | 2.5% |
+| DATA_PATH | 1149 | 99.3% | 99.8% | 99.1% | 99.5% | 0.0% |
 
 Precision is over decisions matched to an event (false alarms are reported separately); recall is over all events, missed ones included.
 
-- detection delay (first trigger − onset), all detected events: median 3 s, P90 35 s
-- delay, PROCESS events: median 20 s, P90 81 s
-- delay, INSTRUMENT events: median 4 s, P90 36 s
+- detection delay (first trigger − onset), all detected events: median 3 s, P90 33 s
+- delay, PROCESS events: median 20 s, P90 76 s
+- delay, INSTRUMENT events: median 4 s, P90 35 s
 - delay, DATA_PATH events: median 0 s, P90 3 s
-- false alarms: 71 in 337.6 h monitored outside event windows = 0.210 per hour
+- false alarms: 73 in 338.1 h monitored outside event windows = 0.216 per hour
 
 ## E2 — level + rate channel (both models pooled)
 
 ```
 truth\pred    events  missed    PROC    INST    DATA   UNDET  acc(det)
-PROCESS          666      90     566       9       1       0     98.3%
-INSTRUMENT      1124      20      14    1090       0       0     98.7%
-DATA_PATH       1140       6       2       0    1132       0     99.8%
+PROCESS          664      72     581      10       1       0     98.1%
+INSTRUMENT      1129      22      14    1092       1       0     98.6%
+DATA_PATH       1149       8       2       0    1139       0     99.8%
 ```
 
-- events 2930, detected 2814 (96.0%); of detected: correct 2788 (99.1%), UNDETERMINED 0 (0.0%), wrong cause 26 (0.9%)
+- events 2942, detected 2840 (96.5%); of detected: correct 2812 (99.0%), UNDETERMINED 0 (0.0%), wrong cause 28 (1.0%)
 | true cause | events | detected | precision | recall | F1 | UNDETERMINED, % of detected |
 |---|---|---|---|---|---|---|
-| PROCESS | 666 | 86.5% | 97.3% | 85.0% | 90.7% | 0.0% |
-| INSTRUMENT | 1124 | 98.2% | 99.2% | 97.0% | 98.1% | 0.0% |
-| DATA_PATH | 1140 | 99.5% | 99.9% | 99.3% | 99.6% | 0.0% |
+| PROCESS | 664 | 89.2% | 97.3% | 87.5% | 92.1% | 0.0% |
+| INSTRUMENT | 1129 | 98.1% | 99.1% | 96.7% | 97.9% | 0.0% |
+| DATA_PATH | 1149 | 99.3% | 99.8% | 99.1% | 99.5% | 0.0% |
 
 Precision is over decisions matched to an event (false alarms are reported separately); recall is over all events, missed ones included.
 
-- detection delay (first trigger − onset), all detected events: median 3 s, P90 35 s
-- delay, PROCESS events: median 20 s, P90 81 s
-- delay, INSTRUMENT events: median 4 s, P90 36 s
+- detection delay (first trigger − onset), all detected events: median 3 s, P90 34 s
+- delay, PROCESS events: median 20 s, P90 76 s
+- delay, INSTRUMENT events: median 4 s, P90 35 s
 - delay, DATA_PATH events: median 0 s, P90 3 s
-- false alarms: 71 in 337.6 h monitored outside event windows = 0.210 per hour
+- false alarms: 73 in 338.1 h monitored outside event windows = 0.216 per hour
 
 ## E3 — detection against baselines (both models pooled; baselines do not attribute)
 
 | detector | detected / events | PROCESS | INSTRUMENT | DATA_PATH | delay median / P90 (s) | false alarms per hour |
 |---|---|---|---|---|---|---|
-| triage (level only) | 2810 / 2930 (95.9%) | 86.5% | 97.9% | 99.5% | 3 / 35 | 0.210 |
-| rolling z-score | 1797 / 2930 (61.3%) | 65.3% | 60.0% | 60.4% | 0 / 78 | 0.412 |
-| restarted CUSUM | 2386 / 2930 (81.4%) | 100.0% | 86.2% | 65.9% | 13 / 72 | 9.712 |
+| triage (level only) | 2834 / 2942 (96.3%) | 89.2% | 97.5% | 99.3% | 3 / 33 | 0.216 |
+| rolling z-score | 1835 / 2942 (62.4%) | 66.3% | 61.9% | 60.6% | 0 / 82 | 0.402 |
+| restarted CUSUM | 2412 / 2942 (82.0%) | 100.0% | 86.5% | 67.1% | 13 / 74 | 9.605 |
 
 Per fault type: `E3_baselines.txt`.
 
@@ -68,8 +68,8 @@ Per fault type: `E3_baselines.txt`.
 |---|---|---|---|---|---|---|---|---|
 | TANK | LEVEL_SHIFT | 92.0% | 97.5% | 98.3% | 98.2% | 97.8% | 97.2% | 96.8% |
 | TANK | BIAS_STEP | 23.9% | 51.1% | 88.7% | 98.8% | 100.0% | 100.0% | 100.0% |
-| THERMAL | LEVEL_SHIFT | 84.2% | 94.9% | 99.1% | 99.3% | 99.6% | 99.7% | 99.4% |
-| THERMAL | BIAS_STEP | 11.5% | 36.5% | 78.7% | 97.7% | 99.8% | 100.0% | 100.0% |
+| THERMAL | LEVEL_SHIFT | 44.4% | 91.8% | 98.6% | 99.2% | 99.3% | 99.4% | 99.4% |
+| THERMAL | BIAS_STEP | 11.9% | 34.7% | 79.2% | 97.1% | 99.9% | 100.0% | 100.0% |
 
 Plausible-rate bound in the jump test: 5·rate + 2.4σ = 3.15σ (tank), 3.40σ (thermal).
 
@@ -77,16 +77,16 @@ Plausible-rate bound in the jump test: 5·rate + 2.4σ = 3.15σ (tank), 3.40σ (
 
 | Δ | detected | correct of detected | UNDETERMINED | decision latency median (s) | false alarms per hour |
 |---|---|---|---|---|---|
-| 20 | 95.9% | 88.2% | 2.2% | 23 | 0.228 |
-| 40 | 95.9% | 90.6% | 2.2% | 43 | 0.210 |
-| 80 | 95.9% | 90.3% | 2.3% | 83 | 0.228 |
+| 20 | 96.4% | 88.7% | 2.0% | 23 | 0.234 |
+| 40 | 96.3% | 91.2% | 2.1% | 43 | 0.216 |
+| 80 | 96.0% | 91.0% | 2.1% | 83 | 0.263 |
 
 ## E6 — cost per sample (one stream of 1000000 samples, tank model, all fault types injected)
 
 | configuration | median ns per sample (5 timed passes after 3 warm-up passes) | min | max |
 |---|---|---|---|
-| level only | 7014 | 6624 | 7719 |
-| level + rate | 7196 | 6734 | 7702 |
+| level only | 5760 | 5753 | 5771 |
+| level + rate | 5777 | 5747 | 5813 |
 
 Fixed-size state per channel: 1296 doubles in arrays sized by the configuration (independent of stream length), plus 32 boxed values in the two extremum aggregators. ADWIN keeps O(log W) buckets; the most seen over these passes: 31.
 
@@ -112,9 +112,9 @@ False alarms of the method by attributed cause: labelled files {PROCESS=80, INST
 
 | variant | correct of detected | BIAS_STEP correct | LEVEL_SHIFT correct | RAMP correct | UNDETERMINED |
 |---|---|---|---|---|---|
-| full method | 90.6% | 97.7% | 99.5% | 85.1% | 2.2% |
-| no plausible-rate test | 83.3% | 0.0% | 100.0% | 86.1% | 2.2% |
-| no deferral (horizon = Δ) | 70.7% | 97.7% | 0.0% | 0.5% | 29.0% |
+| full method | 91.2% | 99.1% | 99.0% | 83.8% | 2.1% |
+| no plausible-rate test | 83.5% | 0.0% | 100.0% | 85.3% | 2.2% |
+| no deferral (horizon = Δ) | 71.2% | 99.1% | 0.0% | 1.0% | 28.5% |
 
 ## E9 — semi-synthetic: the catalogue injected into recorded SKAB channels (level channel only)
 
@@ -159,8 +159,8 @@ Precision is over decisions matched to an event (false alarms are reported separ
 
 | channels | detected | correct of detected | undetermined of detected | false alarms per hour |
 |---|---|---|---|---|
-| level only | 95.9% [95.1, 96.7] | 90.6% [90.0, 91.3] | 2.2% [1.7, 2.8] | 0.210 [0.157, 0.263] |
-| level + rate | 96.0% [95.3, 96.8] | 99.1% [98.7, 99.4] | 0.0% [0.0, 0.0] | 0.210 [0.157, 0.263] |
+| level only | 96.3% [95.7, 97.0] | 91.2% [90.6, 91.8] | 2.1% [1.6, 2.7] | 0.216 [0.160, 0.278] |
+| level + rate | 96.5% [95.9, 97.2] | 99.0% [98.6, 99.4] | 0.0% [0.0, 0.0] | 0.216 [0.160, 0.278] |
 
 ## E11 — why events were missed (test seeds, both models, level channel only)
 
@@ -168,13 +168,15 @@ Precision is over decisions matched to an event (false alarms are reported separ
 
 | injection | events | missed | absorbed | silent |
 |---|---|---|---|---|
-| LEVEL_SHIFT | 218 | 24 | 16 | 8 |
-| RAMP | 230 | 28 | 3 | 25 |
-| REGIME_CHANGE | 218 | 38 | 3 | 35 |
-| BIAS_STEP | 222 | 4 | 4 | 0 |
-| LINEAR_DRIFT | 236 | 20 | 6 | 14 |
-| SUBSTITUTION | 232 | 2 | 2 | 0 |
-| REPLAY | 228 | 2 | 2 | 0 |
-| ZERO_OR_BOUNDARY | 222 | 2 | 2 | 0 |
-| all | | 120 | 38 | 82 |
+| LEVEL_SHIFT | 219 | 21 | 15 | 6 |
+| RAMP | 225 | 28 | 8 | 20 |
+| REGIME_CHANGE | 220 | 23 | 3 | 20 |
+| BIAS_STEP | 226 | 3 | 3 | 0 |
+| LINEAR_DRIFT | 231 | 24 | 9 | 15 |
+| STUCK_AT_LAST | 227 | 1 | 1 | 0 |
+| SPIKE | 232 | 3 | 3 | 0 |
+| SUBSTITUTION | 232 | 1 | 1 | 0 |
+| REPLAY | 227 | 2 | 2 | 0 |
+| ZERO_OR_BOUNDARY | 227 | 2 | 2 | 0 |
+| all | | 108 | 47 | 61 |
 
